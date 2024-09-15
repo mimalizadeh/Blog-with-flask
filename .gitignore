@@ -1,4 +1,4 @@
 .idea
 *.pyc
 local_*
-.env
+.flaskenv
