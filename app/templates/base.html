@@ -8,9 +8,12 @@
     <title>{{title}} | Flask Blog</title>
 </head>
 <body>
-
-<h1>
-    Hello , {{user.name}} !
-</h1>
+<header>
+    <div>
+        <a href="/index">Home</a>
+    </div>
+    <hr>
+    {% block content%} {%endblock content%}
+</header>
 </body>
 </html>
