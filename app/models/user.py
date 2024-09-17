@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
@@ -10,6 +11,9 @@ class User(db.Model):
     email: orm.Mapped[str] = orm.mapped_column(sa.String(64), index=True, unique=True)
     salt: orm.Mapped[Optional[str]] = orm.mapped_column(sa.String(256))
     password_hash: orm.Mapped[Optional[str]] = orm.mapped_column(sa.String(256))
+
+    create_at: orm.Mapped[datetime] = orm.mapped_column(sa.DateTime, default=datetime.utcnow)
+    update_at: orm.Mapped[datetime] = orm.mapped_column(sa.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __repr__(self):
         return f"<User(id={self.id}, username={self.username})>"
