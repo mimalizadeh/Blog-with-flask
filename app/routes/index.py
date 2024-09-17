@@ -1,9 +1,12 @@
+from flask_login import login_required
+
 from app import app
 from flask import render_template
 
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     user = {'name': 'Mohammad'}
 
