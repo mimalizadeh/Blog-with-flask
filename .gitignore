@@ -3,3 +3,5 @@
 local_*
 .flaskenv
 migrations
+*.db
+*.sqlite
