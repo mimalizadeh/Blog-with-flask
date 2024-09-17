@@ -2,11 +2,12 @@ from datetime import datetime
 from typing import Optional
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from app import db
+from app import db, login
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import UserMixin
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id: orm.Mapped[int] = orm.mapped_column(primary_key=True)
     username: orm.Mapped[str] = orm.mapped_column(
         sa.String(64), index=True, unique=True)
@@ -16,7 +17,7 @@ class User(db.Model):
     password_hash: orm.Mapped[Optional[str]
                               ] = orm.mapped_column(sa.String(256))
 
-    posts: orm.WriteOnlyMapped['Post'] = orm.relationship( # type: ignore
+    posts: orm.WriteOnlyMapped['Post'] = orm.relationship(  # type: ignore
         'Post', back_populates='author')
 
     create_at: orm.Mapped[datetime] = orm.mapped_column(
@@ -32,3 +33,7 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+@login.user_loader
+def load_user(id):
+    return db.session.get(User,int(id))
