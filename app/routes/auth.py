@@ -21,7 +21,7 @@ def login():
         user_model = db.session.scalar(
             sa.select(User).where(User.username == form.username.data))
 
-        if user_model in None or not user_model.check_password(form.password.data):
+        if user_model is None or not user_model.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
 

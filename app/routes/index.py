@@ -8,7 +8,6 @@ from flask import render_template
 @app.route('/index')
 @login_required
 def index():
-    user = {'name': 'Mohammad'}
 
     posts = [
         {
@@ -20,4 +19,4 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
-    return render_template("index/index.html", title="Home", user=user , posts=posts)
+    return render_template("index/index.html", title="Home", posts=posts)
