@@ -11,3 +11,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app.routes import index, login
+from app.models import user
