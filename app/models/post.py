@@ -11,8 +11,8 @@ class Post(db.Model):
     title: orm.Mapped[str] = orm.mapped_column(sa.String(140), default=None)
     body: orm.Mapped[str] = orm.mapped_column(sa.String(500))
 
-    user_id: orm.Mapped[int] = orm.mapped_column(sa.Integer, sa.ForeignKey('user.id'))
-    author: orm.Mapped[User] = orm.mapped_column(sa.ForeignKey(User.id), index=True)
+    user_id: orm.Mapped[int] = orm.mapped_column(sa.ForeignKey(User.id), index=True)
+    author: orm.Mapped[User] = orm.relationship(back_populates='posts')
 
     create_at: orm.Mapped[datetime] = orm.mapped_column(sa.DateTime, nullable=False, default=datetime.utcnow,
                                                         index=True)
