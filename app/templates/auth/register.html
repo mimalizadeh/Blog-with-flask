@@ -36,9 +36,9 @@
     </p>
 
     <p>
-        {{form.password_confirm.label}}
-        {{form.password_confirm(size=32)}}
-        {% for error in form.password_confirm.errors%}
+        {{form.confirm_password.label}}
+        {{form.confirm_password(size=32)}}
+        {% for error in form.confirm_password.errors%}
         <span style="color: red;">
             [{{error}}]
         </span>
@@ -49,4 +49,4 @@
     <p>Have account? <a href="{{ url_for('login') }}">Click to Login!</a></p>
 
 </form>
-{%end block content%}
+{%endblock content%}

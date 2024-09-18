@@ -5,6 +5,7 @@ from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 
 from app.forms.login import LoginForm
+from app.forms.register import RegisterForm
 from app.models.user import User
 from flask_login import current_user, login_user, logout_user
 import sqlalchemy as sa
@@ -38,3 +39,19 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user_model = User(username=form.username.data, email=form.email.data)
+        user_model.set_password(form.password.data)
+        db.session.add(user_model)
+        db.session.commit()
+        flash('Thanks for registering!')
+        return redirect(url_for('login'))
+    return render_template('auth/register.html', title="Register", form=form)
